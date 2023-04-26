@@ -6,7 +6,7 @@
 
     <groupId>ru.lamoda.datamatrix.gui</groupId>
     <artifactId>datamatrix-validator-gui</artifactId>
-    <version>1.0.0.0</version>
+    <version>1.0.1</version>
     <name>datamatrix-validator-gui</name>
 
     <properties>
