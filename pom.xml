@@ -6,7 +6,7 @@
 
     <groupId>ru.lamoda.datamatrix.gui</groupId>
     <artifactId>datamatrix-validator-gui</artifactId>
-    <version>1.0.0.0</version>
+    <version>1.0.1</version>
     <name>datamatrix-validator-gui</name>
 
     <properties>
@@ -95,7 +95,6 @@
                     </execution>
                 </executions>
             </plugin>
-
             <plugin>
                 <groupId>com.akathist.maven.plugins.launch4j</groupId>
                 <artifactId>launch4j-maven-plugin</artifactId>
@@ -104,17 +103,18 @@
                     <execution>
                         <id>l4j-clui</id>
                         <phase>install</phase>
-                        <goals><goal>launch4j</goal></goals>
+                        <goals>
+                            <goal>launch4j</goal>
+                        </goals>
                         <configuration>
                             <headerType>gui</headerType>
                             <outfile>target/DatamatrixValidator.exe</outfile>
                             <jar>target/datamatrix-validator-gui-${project.version}-shaded.jar</jar>
                             <icon>src/main/resources/img/barcode.ico</icon>
-                            <downloadUrl>https://download.oracle.com/java/17/archive/jdk-17.0.1_windows-x64_bin.msi</downloadUrl>
                             <errTitle>Launching error</errTitle>
                             <dontWrapJar>false</dontWrapJar>
                             <jre>
-                                <path>%JAVA_HOME%;%PATH%</path>
+                                <path>%PWD%/java/win/jre;%JAVA_HOME%;%PATH%</path>
                                 <minVersion>11</minVersion>
                                 <jdkPreference>preferJdk</jdkPreference>
                                 <initialHeapPercent>20</initialHeapPercent>
@@ -129,7 +129,6 @@
                                 <txtProductVersion>${project.version}</txtProductVersion>
                                 <productName>DatamatrixValidator</productName>
                                 <internalName>DatamatrixValidator</internalName>
-
                                 <originalFilename>DatamatrixValidator.exe</originalFilename>
                             </versionInfo>
                             <messages>
@@ -138,6 +137,24 @@
                                 <jreVersionErr>Jre Version Error</jreVersionErr>
                                 <launcherErr>Launcher Error</launcherErr>
                             </messages>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>create-distribution</id>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                        <configuration>
+                            <descriptors>
+                                <descriptor>src/main/resources/assembly/assembly.xml</descriptor>
+                            </descriptors>
                         </configuration>
                     </execution>
                 </executions>
